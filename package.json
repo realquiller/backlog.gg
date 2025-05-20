@@ -1,0 +1,16 @@
+{
+  "name": "backlog.gg",
+  "version": "1.0.0",
+  "description": "Your personal gaming journal with AI superpowers.   Never forget where you left off, no matter how long your games stay in the backlog!",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./backend/server.js",
+    "fetch": "node ./backend/fetchToken.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.5.0"
+  }
+}

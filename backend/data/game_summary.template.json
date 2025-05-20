@@ -1,0 +1,7 @@
+{
+  "score_avg": 8.7,  // průměr všech "score" z Notes
+  "replayability_avg": 4.2,  // průměr "replayability"
+  "priority_avg": 4.8,  // průměr "priority"
+  "dominant_mood": "Hyped",  // nejčastější mood z poznámek
+  "recommendation": "Pick this up soon! High priority and fun replay value."
+}

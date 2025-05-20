@@ -1,0 +1,12 @@
+{
+  "id": "1",
+  "name": "Elden Ring",
+  "cover_image": "https://images.rawg.io/elden_ring.jpg",
+  "platform": ["PC", "PS5"],
+  "status": "Playing",
+  "score_avg": 8.7,
+  "replayability_avg": 4.2,
+  "priority_avg": 4.8,
+  "notes_count": 12,
+  "last_note_date": "2025-05-19T20:15:00Z"
+}
