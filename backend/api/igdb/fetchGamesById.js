@@ -1,10 +1,8 @@
-const { getValidToken } = require('./fetchToken');
-const { searchGames } = require('./searchGames');
+const { fetchValidToken } = require('../../auth/fetchValidTwitchToken');
 
-async function searchAndFilterGames(searchQuery) {
+async function fetchGamesById() {
     try {
-        const searched_games = await searchGames(searchQuery);
-        const tokenObj = await getValidToken();
+        const tokenObj = await fetchValidToken();
         const accessToken = tokenObj.access_token;
 
         const resp = await fetch('https://api.igdb.com/v4/game_types', {
@@ -20,6 +18,7 @@ async function searchAndFilterGames(searchQuery) {
 
         const data = await resp.json();
         console.log(data);
+        return data["type"];
 
 
     } catch (err) {
@@ -27,3 +26,5 @@ async function searchAndFilterGames(searchQuery) {
         return null;
     }
 }
+
+module.exports = { fetchGamesById };

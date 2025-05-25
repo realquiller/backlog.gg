@@ -12,7 +12,7 @@ backend/data/games.json
 backend/data/notes.json
 
 # Token
-backend/igdb/token.json
+backend/cache/token.json
 
 # 🧪 Test coverage or build folders
 coverage/

@@ -1,7 +1,9 @@
-const { getValidToken } = require('./fetchToken');
+const { getValidToken } = require('../../auth/fetchValidTwitchToken');
+const { searchGames } = require('./searchGames');
 
-async function fetchGamesById() {
+async function searchAndFilterGames(searchQuery) {
     try {
+        const searched_games = await searchGames(searchQuery);
         const tokenObj = await getValidToken();
         const accessToken = tokenObj.access_token;
 
@@ -26,9 +28,10 @@ async function fetchGamesById() {
     }
 }
 
-(async () => {
-    const results = await fetchGamesById();
-    console.log(results);
-})();
-
-module.exports = { fetchGamesById };
+function createGameTypeMap(gameTypeData) {
+  const map = {};
+  for (const entry of gameTypeData) {
+    map[entry.id] = entry.type;
+  }
+  return map;
+}

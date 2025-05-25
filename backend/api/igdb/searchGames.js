@@ -1,10 +1,10 @@
 require('dotenv').config();
-const { getValidToken } = require('./fetchToken');
+const { fetchValidToken } = require('../../auth/fetchValidTwitchToken');
 
 
 async function searchGames(querySearch) {
     try {
-        const tokenObj = await getValidToken();
+        const tokenObj = await fetchValidToken();
         const accessToken = tokenObj.access_token;
         const resp = await fetch('https://api.igdb.com/v4/search', {
             method: 'POST',
@@ -26,10 +26,5 @@ async function searchGames(querySearch) {
         return null;
     }
 }
-
-(async () => {
-    const results = await searchGames("Dark Souls");
-    console.log(results);
-})();
 
 module.exports = { searchGames };

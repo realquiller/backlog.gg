@@ -1,10 +1,9 @@
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
-
 const tokenFile = path.join(__dirname, './igdb/token.json');
 
-async function getToken() {
+async function fetchToken() {
     try {
         const resp = await fetch('https://id.twitch.tv/oauth2/token', {
             method: 'POST',
@@ -28,40 +27,33 @@ async function getToken() {
 
         fs.writeFileSync(tokenFile, JSON.stringify(token, null, 2));
         return token;
-
     } catch (err) {
-        console.error("Fetch error:", err);
+        console.error("Error fetching new token:", err);
         return null;
     }
 }
 
-async function getValidToken() {
+async function fetchValidToken() {
     try {
         if (fs.existsSync(tokenFile)) {
-            try {
-                const raw = fs.readFileSync(tokenFile, 'utf8');
-                token = JSON.parse(raw);
-            }   catch (err) {
-                console.warn("Failed to parse token file. Fetching a new one...");
-                return await getToken();
-            }
+            const raw = fs.readFileSync(tokenFile, 'utf8');
+            const token = JSON.parse(raw);
 
-            if (token && token.expires_at > Date.now()) {
+            if (token.expires_at > Date.now()) {
                 return token;
             }
 
-            console.log('Token expired. Fetching a new one...');
+            console.log("Token expired. Fetching a new one...");
         } else {
-            console.log('Token file not found. Fetching a new one...');
+            console.log("Token file not found. Fetching a new one...");
         }
-
-        return await getToken();
-        } catch (err) {
-            console.error("token loading error:", err);
-            return await getToken();
-        }
+    } catch (err) {
+        console.warn("Token read/parse error. Fetching a new one...");
     }
 
-module.exports = { getToken, getValidToken };
+    return await fetchToken();
+}
+
+module.exports = { fetchValidToken };
 
 
