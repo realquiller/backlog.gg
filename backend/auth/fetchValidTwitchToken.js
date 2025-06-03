@@ -1,7 +1,7 @@
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
-const tokenFile = path.join(__dirname, './igdb/token.json');
+const tokenFile = path.join(__dirname, '../cache/token.json');
 
 async function fetchToken() {
     try {

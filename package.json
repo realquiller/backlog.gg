@@ -4,6 +4,7 @@
   "description": "Your personal gaming journal with AI superpowers.   Never forget where you left off, no matter how long your games stay in the backlog!",
   "main": "index.js",
   "scripts": {
+    "main": "node ./backend/main.js",
     "start": "node ./backend/server.js",
     "search": "node ./backend/searchGames.js",
     "gamesById": "node ./backend/fetchGamesById.js"
