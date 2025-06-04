@@ -1,0 +1,2 @@
+GET http://localhost:3001/api/games/types
+GET http://localhost:3001/api/games/search?q=dark%20souls

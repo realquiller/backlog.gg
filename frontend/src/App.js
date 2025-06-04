@@ -1,33 +1,27 @@
+import { useState } from 'react'; 
 import GameCard from './components/GameCard';
+import SearchBar from './components/SearchBar';
 
 function App() {
-  const sampleGames = [
-  {
-    id: 42982,
-    name: 'Dark Souls: Limited Edition',
-    summary: 'Dark Souls: Limited Edition…', 
-    cover: 185581,
-    platforms: [9, 12],
-    screenshots: [918590, 1365972],
-    game_type: 0
-  },
-  {
-    id: 12345,
-    name: 'Hollow Knight',
-    summary: 'Hollow Knight je metroidvania…',
-    cover: 543210,
-    platforms: [6, 10],
-    screenshots: [111111, 222222],
-    game_type: 0
-  }
-  ];
+  const [games, setGames] = useState([]);
+
+  // for the time being, we'll use empty search results
+  const handleSearch = (q) => {
+    console.log('Searching for', q);
+    // here'd go fetch ('/api/games/search?q=' + q)
+  };
+
+
 
   return (
     <div>
-      {sampleGames.map(game => (
-        <GameCard key={game.id} game={game} />
-      ))}
+      <SearchBar onSearch={handleSearch} />
+      <div>
+        {games.map(game => (
+          <GameCard key={game.id} game={game} />
+        ))}
       </div>
+    </div>
   );
 }
 

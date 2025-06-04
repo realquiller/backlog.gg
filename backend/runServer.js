@@ -1,51 +1,22 @@
-const http = require('http');
-const fs = require('fs');
+require('dotenv').config();
+const express = require('express');
 const path = require('path');
+const gamesRouter = require('./routes/games');
 
-const server = http.createServer((req, res) => {
-    const filePath = req.url === '/' 
-        ? path.join(__dirname, 'static', 'index.html') 
-        : path.join(__dirname, 'static', req.url);
-    
-    const ext = path.extname(filePath);
-    let contentType = 'text/html';
+const app = express();
+const PORT = process.env.PORT || 3001;
 
-    switch (ext) {
-        case '.css':
-            contentType = 'text/css';
-            break;
-        case '.js':
-            contentType = 'application/javascript';
-            break;
-        case '.json':
-            contentType = 'application/json';
-            break;
-        case '.png':
-            contentType = 'image/png';
-            break;
-        case '.ico':
-            contentType = 'image/x-icon';
-            break;
-    }
+// 1. Serve static files from the folder "frontend/build" (after npm run build)
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
 
-    fs.readFile(filePath, (err, content) => {
-        if (err) {
-            if (err.code == 'ENOENT') {
-                res.writeHead(404, { 'Content-Type': 'text/plain'});
-                res.end('404 Not Found');
-            } else {
-                res.writeHead(500);
-                res.end('Server Error');
-            }
-        } else {
-            res.writeHead(200, { 'Content-Type': contentType });
-            res.end(content);
-        }
-    });
+// 2. Connect all /api/games/* routes to the router
+app.use('/api/games', gamesRouter);
+
+// 3. For any other requests, serve the index.html file
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
 });
 
-
-const PORT = 8080;
-server.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
