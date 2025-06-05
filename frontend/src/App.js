@@ -8,7 +8,10 @@ function App() {
   // for the time being, we'll use empty search results
   const handleSearch = (q) => {
     console.log('Searching for', q);
-    // here'd go fetch ('/api/games/search?q=' + q)
+      fetch(`/api/games/search?q=${encodeURIComponent(q)}`)
+        .then(res => res.json())
+        .then(data => setGames(data))
+        .catch(err => console.error(err));
   };
 
 
