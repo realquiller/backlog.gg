@@ -5,7 +5,6 @@ import SearchBar from './components/SearchBar';
 function App() {
   const [games, setGames] = useState([]);
 
-  // for the time being, we'll use empty search results
   const handleSearch = (q) => {
     console.log('Searching for', q);
       fetch(`/api/games/search?q=${encodeURIComponent(q)}`)
@@ -13,8 +12,6 @@ function App() {
         .then(data => setGames(data))
         .catch(err => console.error(err));
   };
-
-
 
   return (
     <div>

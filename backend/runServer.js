@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const gamesRouter = require('./routes/games');
+const backlogRouter = require('./routes/backlog');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -12,7 +13,10 @@ app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
 // 2. Connect all /api/games/* routes to the router
 app.use('/api/games', gamesRouter);
 
-// 3. For any other requests, serve the index.html file
+// 3. Connect all /api/backlog/* routes to the router
+app.use('/api/backlog', backlogRouter);
+
+// 4. For any other requests, serve the index.html file
 app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
 });
