@@ -1,8 +1,12 @@
-import { useState } from 'react'; 
-import GameCard from './components/GameCard';
+import { useState } from 'react';
+import AppHeader from './components/AppHeader';
 import SearchBar from './components/SearchBar';
+import GameCard from './components/GameCard';
+import BacklogPage from './components/BacklogPage';
+
 
 function App() {
+  const [view, setView] = useState('search'); // 'search' or 'backlog'
   const [games, setGames] = useState([]);
 
   const handleSearch = (q) => {
@@ -15,12 +19,20 @@ function App() {
 
   return (
     <div>
-      <SearchBar onSearch={handleSearch} />
-      <div>
-        {games.map(game => (
-          <GameCard key={game.id} game={game} />
-        ))}
-      </div>
+      <AppHeader onNavigate={setView} />
+
+      {view === 'search' && (
+        <>
+          <SearchBar onSearch={handleSearch} />
+          <div>
+            {games.map(game => (
+              <GameCard key={game.id} game={game} />
+            ))}
+          </div>
+        </>
+      )}
+
+      {view === 'backlog' && <BacklogPage />}
     </div>
   );
 }
