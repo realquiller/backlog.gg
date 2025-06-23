@@ -21,7 +21,7 @@ async function searchGames(querySearch, gameTypeDict = {}) {
             },
             body: `
                 search "${querySearch}";
-                fields name, game_type, summary, screenshots, platforms, cover;
+                fields name, game_type, summary, screenshots, platforms, cover.image_id;
                 ${whereClause}
                 limit 10;
             `.trim()

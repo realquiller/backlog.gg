@@ -20,6 +20,11 @@ export default function GameCard({ game }) {
     return (
         <div style={{ border: '1px solid #ccc', padding: '8px', margin: '8px' }}>
             <h2>{game.name}</h2>
+            <img
+                src={`https://images.igdb.com/igdb/image/upload/t_cover_big/${game.cover.image_id}.jpg`}
+                alt={game.name}
+                style={{ maxWidth: '150px', display: 'block', margin: '8px 0' }}
+            />
             <p>{game.summary}</p>
             {saved
             ? <button disabled>Saved</button>

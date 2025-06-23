@@ -21,6 +21,19 @@ function App() {
     <div>
       <AppHeader onNavigate={setView} />
 
+      {view === 'backlog' && (
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          padding: '16px',
+        }}>
+          <SearchBar onSearch={q => {
+            setView('search'); // switch to search view
+            handleSearch(q); // execute fetch
+          }} />
+        </div>
+      )}
+
       {view === 'search' && (
         <>
           <SearchBar onSearch={handleSearch} />
